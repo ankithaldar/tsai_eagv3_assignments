@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnnoyBlock</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="header-left">
+        <img src="../icons/icon-48.png" alt="AnnoyBlock" class="logo" width="24" height="24">
+        <h1 class="title">AnnoyBlock</h1>
+      </div>
+      <label class="toggle" title="Enable / Disable AnnoyBlock">
+        <input type="checkbox" id="global-toggle" checked>
+        <span class="toggle-slider"></span>
+      </label>
+    </header>
+
+    <!-- Domain info -->
+    <div class="domain-section">
+      <span class="domain-label">Current site</span>
+      <span class="domain-name" id="domain-name">—</span>
+    </div>
+
+    <!-- Whitelist button -->
+    <div class="whitelist-row" id="whitelist-row">
+      <button type="button" class="btn btn-whitelist" id="whitelist-btn">
+        <span id="whitelist-icon">&#x2715;</span>
+        <span id="whitelist-text">Whitelist this site</span>
+      </button>
+    </div>
+
+    <!-- Level slider -->
+    <div class="level-section" id="level-section">
+      <div class="level-header">
+        <span class="level-label">Annoyance Level</span>
+        <span class="level-value" id="level-value">Off</span>
+      </div>
+      <div class="slider-container">
+        <input type="range" id="level-slider" min="0" max="9" value="0" step="1">
+        <div class="slider-ticks">
+          <span>0</span><span>3</span><span>6</span><span>9</span>
+        </div>
+      </div>
+      <div class="level-hint" id="level-hint">No effects applied.</div>
+    </div>
+
+    <!-- Focus Mode indicator -->
+    <div class="focus-indicator" id="focus-indicator" style="display:none;">
+      <span class="focus-dot"></span>
+      <span>Focus Mode Active</span>
+    </div>
+
+    <!-- Footer links -->
+    <footer class="popup-footer">
+      <button type="button" class="btn btn-link" id="options-btn">
+        &#x2699; Advanced Settings
+      </button>
+    </footer>
+  </div>
+
+  <script src="../shared/constants.js"></script>
+  <script src="../shared/storage.js"></script>
+  <script src="../shared/utils.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

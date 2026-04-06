@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnnoyBlock - Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-container">
+    <!-- Header -->
+    <header class="options-header">
+      <div class="header-content">
+        <img src="../icons/icon-128.png" alt="AnnoyBlock" class="logo">
+        <div>
+          <h1>AnnoyBlock Settings</h1>
+          <p class="subtitle">Configure friction-based productivity for your browsing habits</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="tab-nav" role="tablist">
+      <button class="tab active" role="tab" data-tab="general" aria-selected="true">General</button>
+      <button class="tab" role="tab" data-tab="domains" aria-selected="false">Domains</button>
+      <button class="tab" role="tab" data-tab="focus" aria-selected="false">Focus Mode</button>
+      <button class="tab" role="tab" data-tab="effects" aria-selected="false">Effects</button>
+      <button class="tab" role="tab" data-tab="about" aria-selected="false">About</button>
+    </nav>
+
+    <!-- Tab Content -->
+    <main class="tab-content">
+      <!-- General Tab -->
+      <section class="tab-panel active" id="panel-general" role="tabpanel">
+        <div class="card">
+          <h2>Extension Settings</h2>
+          <div class="setting-row">
+            <div class="setting-info">
+              <label for="setting-enabled">Enable AnnoyBlock</label>
+              <p class="setting-desc">Globally enable or disable all annoyance effects.</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="setting-enabled" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <label for="setting-badge">Show Badge Indicator</label>
+              <p class="setting-desc">Display a temporary badge on pages when effects are active.</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="setting-badge" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <label for="setting-reduced-motion">Respect Reduced Motion</label>
+              <p class="setting-desc">Auto-disable motion effects (cursor jitter) if your system prefers reduced motion.</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="setting-reduced-motion" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Data Management</h2>
+          <div class="setting-row">
+            <div class="setting-info">
+              <label>Reset All Settings</label>
+              <p class="setting-desc">Clear all domain configurations and restore defaults.</p>
+            </div>
+            <button type="button" class="btn btn-danger" id="btn-reset">Reset</button>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <label>Export Configuration</label>
+              <p class="setting-desc">Download your configuration as a JSON file.</p>
+            </div>
+            <button type="button" class="btn btn-secondary" id="btn-export">Export</button>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <label>Import Configuration</label>
+              <p class="setting-desc">Load configuration from a JSON file.</p>
+            </div>
+            <button type="button" class="btn btn-secondary" id="btn-import">Import</button>
+            <input type="file" id="import-file" accept=".json" style="display:none">
+          </div>
+        </div>
+      </section>
+
+      <!-- Domains Tab -->
+      <section class="tab-panel" id="panel-domains" role="tabpanel">
+        <div class="card">
+          <div class="card-header">
+            <h2>Configured Domains</h2>
+            <button type="button" class="btn btn-primary" id="btn-add-domain">+ Add Domain</button>
+          </div>
+          <div class="domain-input-row" id="domain-input-row" style="display:none;">
+            <input type="text" id="new-domain-input" placeholder="e.g., twitter.com" class="input">
+            <button type="button" class="btn btn-primary" id="btn-save-domain">Save</button>
+            <button type="button" class="btn btn-secondary" id="btn-cancel-domain">Cancel</button>
+          </div>
+          <div class="domain-list" id="domain-list">
+            <p class="empty-state">No domains configured yet. Click "+ Add Domain" to get started.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Focus Mode Tab -->
+      <section class="tab-panel" id="panel-focus" role="tabpanel">
+        <div class="card">
+          <div class="setting-row">
+            <div class="setting-info">
+              <label for="focus-enabled">Enable Focus Mode</label>
+              <p class="setting-desc">Automatically apply annoyance effects during scheduled work hours.</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="focus-enabled">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="card" id="focus-schedules-card">
+          <div class="card-header">
+            <h2>Schedules</h2>
+            <button type="button" class="btn btn-primary" id="btn-add-schedule">+ Add Schedule</button>
+          </div>
+          <div class="schedule-list" id="schedule-list">
+            <p class="empty-state">No schedules configured. Click "+ Add Schedule" to create one.</p>
+          </div>
+        </div>
+
+        <div class="card" id="focus-status-card">
+          <h2>Current Status</h2>
+          <div id="focus-status">
+            <p>Focus Mode is disabled.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Effects Tab -->
+      <section class="tab-panel" id="panel-effects" role="tabpanel">
+        <div class="card">
+          <h2>Available Effects</h2>
+          <p class="intro-text">
+            Each effect activates at a minimum annoyance level and scales with intensity.
+            Effects are combined automatically based on the configured level.
+          </p>
+          <div class="effect-grid" id="effect-grid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- About Tab -->
+      <section class="tab-panel" id="panel-about" role="tabpanel">
+        <div class="card about-card">
+          <img src="../icons/icon-128.png" alt="AnnoyBlock" class="about-logo">
+          <h2>AnnoyBlock</h2>
+          <p class="version">Version 1.0.0</p>
+          <p class="about-desc">
+            AnnoyBlock replaces hard website blocking with configurable, friction-based UX degradation.
+            Instead of denying access, it makes distracting content less engaging through subtle effects
+            like click delays, image rotation, and text blurring — all grounded in behavioral psychology research.
+          </p>
+          <div class="about-features">
+            <h3>Key Features</h3>
+            <ul>
+              <li>10-level configurable annoyance scale (0-9)</li>
+              <li>Per-domain customization with whitelisting</li>
+              <li>6 distinct effects: saturation, click delay, font weight, image rotation, text blur, cursor jitter</li>
+              <li>Focus Mode scheduler for automatic work-hour activation</li>
+              <li>SPA and infinite scroll compatible</li>
+              <li>Manifest V3 compliant with minimal permissions</li>
+              <li>Under 2MB memory footprint per tab</li>
+            </ul>
+          </div>
+          <div class="about-psychology">
+            <h3>Behavioral Psychology</h3>
+            <p>
+              AnnoyBlock is grounded in Fogg's Behavior Model, Duhigg's Habit Loop,
+              and Thaler &amp; Sunstein's Nudge Theory. By adding small amounts of friction
+              rather than blocking access entirely, it weakens habitual browsing patterns
+              without triggering psychological reactance.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="../shared/constants.js"></script>
+  <script src="../shared/storage.js"></script>
+  <script src="../shared/utils.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
