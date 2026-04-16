@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "name": "The Print Scrubber",
+  "version": "1.0.0",
+  "description": "Automatically cleans web pages before printing — removes ads, nav bars, sidebars, comments, and fixes dark mode to save ink and paper.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "src/background/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/content.js"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "activate-print-scrub": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+P",
+        "mac": "Command+Shift+P"
+      },
+      "description": "Activate Print Scrubber and trigger print"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["src/css/print-styles.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
